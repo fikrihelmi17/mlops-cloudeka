@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  image-classification:
+    container_name: image-classification
+    build: .
+    restart: always
+    volumes:
+      - models:/models
+    ports:
+      - 8501:8501
+
+  model-monitoring:
+    container_name: model-monitoring
+    build: ./monitoring
+    restart: always
+    ports:
+      - 9090:9090
+
+  model-grafana:
+    container_name: model-grafana
+    image: grafana/grafana
+    restart: always
+    ports:
+      - 3000:3000
+
+volumes:
+  models:
